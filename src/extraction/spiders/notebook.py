@@ -2,9 +2,11 @@ import scrapy
 
 
 class NotebookSpider(scrapy.Spider):
-    name = "notebooks"
+    name = "notebook"
     allowed_domains = ["lista.mercadolivre.com.br"]
-    start_urls = ["https://lista.mercadolivre.com.br/notebook#D[A:notebook]"]
+    start_urls = ["https://lista.mercadolivre.com.br/notebook?sb=rb#D[A:notebook]"]
+    page_count = 1
+    max_page = 10
 
     def parse(self, response):
 
@@ -12,7 +14,6 @@ class NotebookSpider(scrapy.Spider):
 
         for product in products:
 
-           
             prices = product.css('span.andes-money-amount__fraction::text').getall()
 
             yield {
@@ -23,5 +24,10 @@ class NotebookSpider(scrapy.Spider):
                 'reviews_amount': product.css('span.poly-reviews__total::text').get(),
                 'old_money': prices[0] if len (prices) > 0 else None,
                 'new_money': prices[1] if len (prices) > 1 else None
-                }
-            pass
+            }
+
+        if self.page_count < self.max_page:
+            next_page = response.css('li.andes-pagination__button.andes-pagination__button--next a::attr(href)').get()
+            if next_page:
+                self.page_count += 1
+                yield scrapy.Request(url=next_page, callback=self.parse)
