@@ -7,11 +7,9 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "coleta"
-
-SPIDER_MODULES = ["coleta.spiders"]
-NEWSPIDER_MODULE = "coleta.spiders"
-
+BOT_NAME = "src.extraction"
+SPIDER_MODULES = ["src.extraction.spiders"]
+NEWSPIDER_MODULE = "src.extraction.spiders"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0"

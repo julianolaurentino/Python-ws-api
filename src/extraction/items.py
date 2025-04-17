@@ -6,7 +6,7 @@
 import scrapy
 
 
-class ColetaItem(scrapy.Item):
+class extractionItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
